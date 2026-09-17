@@ -1,0 +1,76 @@
+@use "variables" as v;
+
+
+//Container
+@mixin container-center($max-width: 600px) {
+    width: min(90%, $max-width);
+    margin: 0 auto;
+    background-color: v.$bg-color;
+    padding: 1.6rem;
+    border-radius: 1.6rem;
+
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+}
+
+
+// Flex
+@mixin flex-center($direction: row, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: center;
+    justify-content: center;
+    gap: $gap;
+}
+
+//Content
+@mixin content-flex($gap: 2rem) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $gap;
+}
+
+// Item
+@mixin item($border-color: v.$main-yellow, $border-size: 0.8rem, $size: 18rem, $padding: 1.6rem,
+    $image-size: 7rem, $font-size: 1.6rem, $font-weight: 700) {
+
+    width: $size;
+    height: $size;
+    padding: $padding;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: $border-size solid $border-color;
+    border-radius: 0.8rem;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: v.$bg-color;
+    cursor: pointer;
+
+
+    img {
+        width: $image-size;
+        height: $image-size;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    >p {
+        font-weight: $font-weight;
+        font-size: $font-size;
+        margin: 0;
+    }
+}
+
+// Sélectioné
+@mixin selected {
+    border: 4px solid v.$main-yellow;
+}

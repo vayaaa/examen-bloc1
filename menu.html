@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wacdo - Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+
+    <link href="/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+    <main class="borne">
+
+        <div class="menu">
+            <!-- Catégories -->
+            <section class="categories">
+                <button class="slider slider-left" id="slider-left"> <img src="img/icons/fleche-slider.png"
+                        alt="slider-left"></button>
+
+                <ul id="categories-container"></ul>
+
+                <button class="slider slider-right" id="slider-right"> <img src="img/icons/fleche-slider.png"
+                        alt="slider-right"></button>
+            </section>
+
+            <!-- Produits -->
+            <section class="products">
+                <h2 id="categorie-title"></h2>
+                <p id="description"></p>
+                <div id="products-container"></div>
+            </section>
+        </div>
+
+
+        <!-- Panier -->
+        <section class="cart">
+            <img class="logo" src="img/logo.png" alt="logo-Wacdo">
+            <div class="commande">
+                <div class="commande-infos">
+                    <p>Commande numéro </p>
+                    <p id="orderType"></p>
+                </div>
+                <p id="orderNumber" class="order-number"></p>
+
+            </div>
+            <hr>
+        </section>
+
+
+    </main>
+
+    <!-- Modale -->
+    <dialog id="modal">
+        <div class="modal-content">
+
+            <button class="close-modal" type="button"><img src="img/icons/supprimer.png" alt="Fermer"></button>
+
+            <div class="modal-container">
+                <h1>Une grosse faim ?</h1>
+                <p id="modal-text"></p>
+
+
+                <div class="modal-choices">
+                    <button class="choice selected" type="button" data-type="maxi">
+                        <img src="img/products/menu/illustration-maxi-best-of.png" alt="menu-maxi-best-of">
+                        <p>Menu Maxi Best Of</p>
+                    </button>
+
+                    <button class="choice" type="button" data-type="normal">
+                        <img src="img/products/menu/illustration-best-of.png" alt="menu-best-of">
+                        <p>Menu Best Of</p>
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <script src="js/menu.js"></script>
+</body>
+
+</html>

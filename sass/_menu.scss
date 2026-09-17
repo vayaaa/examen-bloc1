@@ -1,0 +1,253 @@
+@use "base/variables" as v;
+@use 'base/mixins' as m;
+
+.borne {
+    width: 100%;
+    min-height: 100vh;
+    background-color: v.$bg-color;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+
+.menu {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+    overflow-y: auto;
+   
+    box-sizing: border-box;
+}
+
+// Catégories______________________________________________________
+.categories {
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 6rem;
+        height: 100%;
+        z-index: 10;
+        background-color: v.$bg-color;
+        pointer-events: none;
+    }
+
+    &::before {
+        left: 0;
+    }
+
+    &::after {
+        right: 0;
+    }
+
+    #categories-container {
+        display: flex;
+        gap: 1.5rem;
+        margin: 0 3rem;
+        padding: 2rem 5rem;
+        list-style: none;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .item {
+            @include m.item(v.$border, 0.1rem, 10rem, 1.6rem, 7rem, 1.4rem, 400);
+            flex-shrink: 0;
+            aspect-ratio: 1;
+
+            &.selected {
+                @include m.selected;
+
+            }
+        }
+    }
+}
+
+.slider {
+    @include m.flex-center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    cursor: pointer;
+    background-color: v.$bg-color;
+
+}
+
+.slider-left {
+    left: 1rem;
+}
+
+.slider-right {
+    right: 1rem;
+
+    img {
+        transform: rotate(180deg);
+    }
+}
+
+
+
+// Produits______________________________________________________
+.products {
+    width: 100%;
+
+    h2 {
+        font-weight: 400;
+        font-size: 2.5rem;
+        margin: 2rem 0 0;
+    }
+
+    #description {
+        margin: 0 0 4rem;
+        font-weight: 400;
+        font-size: 1.5rem;
+    }
+
+    #products-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 0;
+        padding: 2rem 5rem;
+        list-style: none;
+
+        .item {
+            @include m.item(v.$border, 0.1rem, 18rem, 1.6rem, 10rem, 1.4rem, 400);
+            flex-shrink: 0;
+        }
+
+        h3 {
+            width: 100%;
+            font-size: 1.4rem;
+            font-weight: 400;
+            text-align: left;
+            margin: 0;
+        }
+
+        p {
+            width: 100%;
+            text-align: left;
+            margin: 0;
+        }
+    }
+}
+
+
+// Modale______________________________________________________
+#modal {
+    @include m.container-center(600px);
+    margin: auto;
+    border: none;
+    border-radius: 1.6rem;
+    padding: 0;
+
+    .modal-content {
+        position: relative;
+        padding: 4rem;
+    }
+
+    .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .modal-container {
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .modal-choices {
+            @include m.flex-center(row, 3rem);
+
+            .choice {
+                @include m.item(v.$border, 0.1rem, 14rem, 1.6rem, 7rem, 1.4rem, 400);
+
+                &.selected {
+                    @include m.selected;
+
+                }
+
+
+            }
+        }
+    }
+}
+
+
+
+// Panier______________________________________________________
+.cart {
+    width: 30rem;
+       min-width: 30rem;
+    height: 100vh;
+    background-color: v.$cart-color;
+    flex-shrink: 0;
+    top: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+
+    .logo {
+        display: block;
+        margin: 3rem auto 5rem;
+    }
+
+    .commande {
+        @include m.content-flex;
+        width: 100%;
+    }
+
+    .commande-infos {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        p {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+    }
+
+    .order-number {
+        margin: 0;
+        font-size: 5rem;
+    }
+
+    hr {
+        border: none;
+        height: 0.1rem;
+        background-color: black;
+        width: 100%;
+        margin: 1rem auto;
+    }
+}

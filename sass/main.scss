@@ -1,0 +1,52 @@
+@use "base/variables" as v;
+@use 'base/mixins' as m;
+
+@use "menu";
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+    font-family: "Source Sans 3", sans-serif;
+    overflow: hidden;
+}
+
+.home {
+    min-height: 100vh;
+    background-image: url("/img/mc_landing_banner.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.container {
+    @include m.container-center(600px);
+
+    h1 {
+        margin: 2rem 0 5rem;
+        font-weight: 700;
+    }
+
+    >p {
+        margin: 0 0 5rem;
+        font-weight: 700;
+        font-size: 22px;
+    }
+
+    .content {
+           @include m.flex-center(row, 3rem);
+
+        .choice {
+            @include m.item;
+        }
+    }
+}
