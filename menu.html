@@ -47,6 +47,7 @@
                 </div>
                 <p id="orderNumber" class="order-number"></p>
 
+                <div class="order-container"></div>
             </div>
             <hr>
         </section>
@@ -54,35 +55,68 @@
 
     </main>
 
+
+
     <!-- Modale -->
     <dialog id="modal">
         <div class="modal-content">
 
             <button class="close-modal" type="button"><img src="img/icons/supprimer.png" alt="Fermer"></button>
+            <button id="modal-back" type="button" hidden> Retour </button>
 
             <div class="modal-container">
-                <h1>Une grosse faim ?</h1>
+                   <h1 id="modal-title">Une grosse faim ?</h1>
                 <p id="modal-text"></p>
 
+                <!-- 1- taille -->
+             
+                <div class="modal-step" id="step-size">
 
-                <div class="modal-choices">
-                    <button class="choice selected" type="button" data-type="maxi">
-                        <img src="img/products/menu/illustration-maxi-best-of.png" alt="menu-maxi-best-of">
-                        <p>Menu Maxi Best Of</p>
-                    </button>
+                    <div class="modal-choices">
+                        <button class="choice selected" type="button" data-type="maxi">
+                            <img src="img/products/menu/illustration-maxi-best-of.png" alt="menu-maxi-best-of">
+                            <p>Menu Maxi Best Of</p>
+                        </button>
 
-                    <button class="choice" type="button" data-type="normal">
-                        <img src="img/products/menu/illustration-best-of.png" alt="menu-best-of">
-                        <p>Menu Best Of</p>
+                        <button class="choice" type="button" data-type="normal">
+                            <img src="img/products/menu/illustration-best-of.png" alt="menu-best-of">
+                            <p>Menu Best Of</p>
+                        </button>
+                    </div>
+                </div>
 
-                    </button>
+                <!-- 2- frites -->
+               
+                <div class="modal-step" id="step-fries" hidden>
 
+                     <div id="fries-container" class="modal-choices">
+                        <button class="choice selected" type="button" data-type="fries">
+                            <img src="img/products/frites/GRANDE_FRITE.png" alt="frites">
+                            <p>Frites</p>
+                        </button>
+
+                        <button class="choice" type="button" data-type="potatoes">
+                            <img src="img/products/frites/POTATOES.png" alt="potatoes">
+                            <p>Potatoes</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3- boissons -->
+            
+                <div class="modal-step" id="step-drink" hidden>
+                    <div id="drinks-container" class="modal-choices"> </div>
                 </div>
             </div>
+
+            <button class="next" type="button" id="modal-next">Etape Suivante</button>
+
         </div>
     </dialog>
 
-    <script src="js/menu.js"></script>
+
+
+    <script type="module" src="js/menu.js"></script>
 </body>
 
 </html>
