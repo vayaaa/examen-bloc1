@@ -1,4 +1,4 @@
-import { state } from "./menu.js";
+import { state } from "./state.js";
 import { openModal } from "./modal.js";
 
 const productsContainer = document.querySelector("#products-container");
@@ -17,7 +17,7 @@ const descriptions = {
     sauces: "Personnalisez votre repas avec nos sauces"
 };
 
-function correctionImage(image) {
+export function correctionLienImage(image) {
     image = image.replace(".png.png", ".png");
     image = image.replace(".jpg.png", ".png");
     return image;
@@ -47,7 +47,7 @@ export function displayProducts(categoryId) {
         const element = document.createElement("article");
         element.classList.add("item");
 
-        const image = correctionImage(product.image);
+        const image = correctionLienImage(product.image);
 
         element.innerHTML = `
         <img src="img/products${image}" alt="${product.nom}"/>
@@ -56,9 +56,7 @@ export function displayProducts(categoryId) {
         `;
 
         element.addEventListener("click", () => {
-            if (category.title === "menus") {
-                openModal(product);
-            }
+                openModal(product, category.title); 
         });
 
         productsContainer.appendChild(element);

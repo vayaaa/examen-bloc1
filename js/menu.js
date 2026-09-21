@@ -1,16 +1,5 @@
 import { loadDatas } from "./data.js";
-
-export const state = {
-    categories: [],
-    products: [],
-    cart: [],
-    newOrder: {
-        product: null,
-        size: null,
-        fries: null,
-        drink: null
-    }
-};
+import { state } from "./state.js";
 
 //Affichage du numéro et type de commande 
 const orderNumberElement = document.querySelector("#orderNumber");
@@ -29,8 +18,6 @@ if (orderType === "sur-place") {
 } else if (orderType === "a-emporter") {
     orderTypeElement.textContent = "A Emporter :";
 }
-
-
 
 
 loadDatas(); 

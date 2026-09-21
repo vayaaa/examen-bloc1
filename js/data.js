@@ -1,4 +1,4 @@
-import { state } from "./menu.js";
+import { state } from "./state.js";
 import { displayCategories } from "./categories.js";
  
 export async function loadDatas() {
