@@ -6,7 +6,8 @@ function fromProducts(list) {
     return list.map((p) => ({
         id: p.nom,
         nom: p.nom,
-        image: `img/products${p.image}`
+        image: `img/products${p.image}`,
+        prix: p.prix
     }));
 }
 
@@ -21,10 +22,10 @@ export const components = {
             default: "maxi",
             option: () => [
                 {
-                    id: "maxi", nom: "Menu Maxi Best Of", image: "img/products/menu/illustration-maxi-best-of.png"
+                    id: "maxi", nom: "Menu Maxi Best Of", image: "img/products/menu/illustration-maxi-best-of.png", prix: 0.50,
                 },
                 {
-                    id: "normal", nom: "Menu Best Of", image: "img/products/menu/illustration-best-of.png"
+                    id: "normal", nom: "Menu Best Of", image: "img/products/menu/illustration-best-of.png", prix: 0
                 },
             ],
         },
@@ -47,7 +48,7 @@ export const components = {
             id: "sauce",
             title: "Choisissez votre sauce",
             text: "Quel assaisonnement pour votre accompagnement?",
-             scroll: true,
+            scroll: true,
             option: () => fromProducts(state.products.sauces),
         },
 
@@ -65,8 +66,8 @@ export const components = {
             title: "Une petite soif?",
             text: "Choisissez la taille de votre boisson, +0.50€ pour le format 50 Cl",
             option: () => [
-                { id: "30cl", nom: "30Cl" },
-                { id: "50cl", nom: "50Cl" },
+                { id: "30cl", nom: "30Cl", prix: 0 },
+                { id: "50cl", nom: "50Cl", prix: 0.50 },
             ],
         },
     ],
@@ -74,10 +75,10 @@ export const components = {
         {
             id: "sauce",
             title: "Choisissez votre sauce",
-            text: "Quelle assaisonnement pourrait vous faire plaisir? ",
-             scroll: true,
+            text: "Quelle assaisonnement pourrait vous faire plaisir? (+0.70€)",
+            scroll: true,
+            skip: true,
             option: () => fromProducts(state.products.sauces),
         },
     ],
-
 };

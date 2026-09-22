@@ -236,7 +236,6 @@
                 flex: 0 0 auto;
             }
         }
-
     }
 }
 
@@ -252,6 +251,8 @@
     top: 0;
     padding: 2rem;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 
     .logo {
         display: block;
@@ -291,24 +292,82 @@
 #order-container {
     display: flex;
     flex-direction: column;
-    gap:0.5rem;
+    gap: 2rem;
+    flex: 1;
+    overflow-y: auto;
 
     .cart-item {
         h4 {
             margin: 0;
             font-size: 1.3rem;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .trash {
+                width: 3.5rem;
+                height: 3.5rem;
+                border: none;
+                cursor: pointer;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
         }
 
         ul {
-            margin: 0.5rem;
+            margin: 0rem;
 
             li {
                 margin: 0;
                 font-size: 1.3rem;
             }
         }
+    }
+}
 
+#total-container {
+    padding-top: 1rem;
 
+    .total-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
 
+        p {
+            margin: 0 auto 2rem;
+            font-size: 1.2rem;
+        }
+
+        #total {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        gap: 1.5rem;
+
+        .cancel,
+        .pay {
+            width: 100%;
+            cursor: pointer;
+            border-radius: 0.8rem;
+            padding: 1rem;
+        }
+
+        .cancel {
+            border: 0.1rem solid v.$border;
+        }
+
+        .pay {
+            border: none;
+            background-color: v.$main-yellow;
+
+        }
     }
 }

@@ -1,15 +1,17 @@
-import { state, addToCart } from "./state.js";
+import { state, addToCart, removeFromCart } from "./state.js";
 import { components } from "./modalComponents.js";
 
 const modal = document.querySelector("#modal");
 const closeModal = document.querySelector(".close-modal");
 const backModal = document.querySelector("#modal-back");
 const nextModal = document.querySelector("#modal-next");
+const skipbutton = document.querySelector("#skip");
 const modalTitle = document.querySelector("#modal-title");
 const modalText = document.querySelector("#modal-text");
 const modalChoices = document.querySelector(".modal-choices");
 
 const cartContainer = document.querySelector("#order-container");
+const totalElement = document.querySelector("#total");
 
 
 let currentOrder = null;
@@ -32,7 +34,6 @@ function isLastStep() {
 
 //ouverture de la modale
 export function openModal(product, categorie) {
-
     const steps = components[categorie];
 
     //Si pas de modale
@@ -79,10 +80,16 @@ function showSteps() {
 
     modalChoices.innerHTML = "";
 
-    if(step.scroll){
+    if (step.scroll) {
         modalChoices.classList.add("list-container");
-    }else{
+    } else {
         modalChoices.classList.remove("list-container")
+    }
+
+    if (step.skip) {
+        nextModal.disabled = false;
+    } else {
+        nextModal.disabled = !currentOrder.choices[step.id];
     }
 
 
@@ -109,6 +116,22 @@ function showSteps() {
 
         //Quand je clique sur une option
         button.addEventListener("click", () => {
+
+            //select/deselect
+            if(currentOrder.choices[step.id]?.id === option.id){
+
+                const newChoices = { ...currentOrder.choices};
+                delete newChoices[step.id];
+
+                setCurrent(({
+                    choices: newChoices
+                }))
+
+                button.classList.remove("selected");
+                nextModal.disabled = false;
+                return;
+            }
+            
             modalChoices.querySelectorAll(".choice").forEach((item) => {
                 item.classList.remove("selected");
             })
@@ -169,22 +192,40 @@ function confirmOrder() {
 //Afficher le panier 
 function displayCart() {
     cartContainer.innerHTML = "";
-    state.cart.forEach((order) => {
+    let totalCart = 0;
+
+    state.cart.forEach((order, index) => {
         const element = document.createElement("article");
         element.classList.add("cart-item");
 
         let list = "";
+        let totalOrder = order.product.prix; // prix du produit
+
         Object.values(order.choices).forEach((choice) => {
             list += `<li>${choice.nom}</li>`;
+
+            totalOrder += choice.prix ?? 0;
         });
 
+        totalOrder = totalOrder * order.quantity;
+
+        totalCart += totalOrder;
+
         element.innerHTML = `
-      <div class="cart-item-header">
-                <h4>${order.product.nom}</h4>
-               <ul>${list} </ul>
-               
-            </div>
+      <div class="cart-item">
+            <h4> ${order.quantity} ${order.product.nom} <button class="trash" type="button"><img src="img/icons/trash.png" alt="Supprimer" ></button> </h4>
+            <ul>${list} </ul>
+        </div>
     `
+
+        const trash = element.querySelector(".trash");
+        trash.addEventListener("click", () => {
+            removeFromCart(index);
+            displayCart();
+        })
         cartContainer.appendChild(element);
+
+
     })
+    totalElement.textContent = `${totalCart.toFixed(2)}€`;
 }

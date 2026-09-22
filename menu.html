@@ -45,11 +45,24 @@
                     <p id="orderType"></p>
                 </div>
                 <p id="orderNumber" class="order-number"></p>
-
-
             </div>
             <hr>
+
             <div id="order-container"></div>
+
+            <hr>
+
+            <div id="total-container">
+                <div class="total-info">
+                    <p>TOTAL (ttc)</p>
+                    <p id="total"></p>
+                </div>
+                <div class="buttons">
+                    <button class="cancel" type="button" id="modal-cancel">Abandon</button>
+                    <button class="pay" type="button" id="modal-pay">Payer</button>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -73,6 +86,7 @@
                 <button class="next" type="button" id="modal-next">Etape Suivante</button>
                 <button class="next" type="button" id="drink-add" hidden>Ajouter a ma commande</button>
                 <button class="cancel" type="button" id="drink-cancel" hidden>Annuler</button>
+                <button class="skip" type="button" id="skip" hidden>Passer</button>
 
             </div>
         </div>
