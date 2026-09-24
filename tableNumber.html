@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wacdo - Numéro de table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+
+    <link href="/css/main.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <main class="home table-number">
+        <div class="container">
+            <img id="chevalet" src="img/icons/OIP (1) 1.png" alt="chevalet">
+            <h1>Pour être servi à table, </h1>
+            <p>Récupérer un chevalet et indiquez ici le numéro inscrit dessus</p>
+
+            <div class="numbers" id="numbers">
+                <input class="number" id="input1" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" value=""
+                    required>
+                <input class="number" id="input2" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" value=""
+                    required>
+                <input class="number" id="input3" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" value=""
+                    required>
+            </div>
+
+            <button class="save-button" type="button" id="save-button">
+                <p>Enregistrer le numéro</p>
+            </button>
+        </div>
+    </main>
+
+
+    <script type="module" src="js/tableNumber.js"></script>
+</body>
+
+</html>

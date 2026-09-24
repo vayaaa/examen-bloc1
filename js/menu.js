@@ -1,5 +1,4 @@
 import { loadDatas } from "./data.js";
-import { state } from "./state.js";
 
 //Affichage du numéro et type de commande 
 const orderNumberElement = document.querySelector("#orderNumber");

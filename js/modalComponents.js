@@ -34,6 +34,7 @@ export const components = {
             title: "Choisissez votre accompagnement",
             text: "Frites, potatoes, la pomme de terre dans tous ses états",
             default: "fries",
+
             option: () => [
                 {
                     id: "fries", nom: "Frites", image: "img/products/frites/GRANDE_FRITE.png"
@@ -49,6 +50,7 @@ export const components = {
             title: "Choisissez votre sauce",
             text: "Quel assaisonnement pour votre accompagnement?",
             scroll: true,
+
             option: () => fromProducts(state.products.sauces),
         },
 
@@ -57,6 +59,7 @@ export const components = {
             title: "Choisissez votre boisson",
             text: "Un soda, un jus de fruit ou un verre d'eau pour accompagner votre repas",
             scroll: true,
+
             option: () => fromProducts(state.products.boissons),
         },
     ],
@@ -65,6 +68,7 @@ export const components = {
             id: "size",
             title: "Une petite soif?",
             text: "Choisissez la taille de votre boisson, +0.50€ pour le format 50 Cl",
+            number: true,
             option: () => [
                 { id: "30cl", nom: "30Cl", prix: 0 },
                 { id: "50cl", nom: "50Cl", prix: 0.50 },
@@ -77,8 +81,23 @@ export const components = {
             title: "Choisissez votre sauce",
             text: "Quelle assaisonnement pourrait vous faire plaisir? (+0.70€)",
             scroll: true,
+            number: true,
             skip: true,
             option: () => fromProducts(state.products.sauces),
+        },
+    ],
+    encas: [
+        {
+            id: "sauce",
+            title: "Choisissez votre sauce",
+            text: "Quelle assaisonnement pourrait vous faire plaisir? (+0.70€)",
+            scroll: true,
+            number: true,
+            skip: true,
+            option: () => fromProducts(state.products.sauces),
+            condition: (product) =>
+                product.nom === "Nuggets x4" ||
+                product.nom === "Nuggets x20",
         },
     ],
 };

@@ -2,18 +2,23 @@ import { state, addToCart, removeFromCart } from "./state.js";
 import { components } from "./modalComponents.js";
 
 const modal = document.querySelector("#modal");
+
 const closeModal = document.querySelector(".close-modal");
 const backModal = document.querySelector("#modal-back");
 const nextModal = document.querySelector("#modal-next");
-const skipbutton = document.querySelector("#skip");
 const modalTitle = document.querySelector("#modal-title");
 const modalText = document.querySelector("#modal-text");
 const modalChoices = document.querySelector(".modal-choices");
-
+const counterContainer = document.querySelector(".counter-container");
+const lessButton = document.querySelector("#btn-less");
+const moreButton = document.querySelector("#btn-more");
+const counter = document.querySelector("#counter");
 const cartContainer = document.querySelector("#order-container");
 const totalElement = document.querySelector("#total");
-
-
+const payButton = document.querySelector("#modal-pay");
+const cancelModal = document.querySelector("#cancel-modal");
+const cancelButton = document.querySelector("#cancel-button");
+const orderType = sessionStorage.getItem("orderType");
 let currentOrder = null;
 
 //Maj sans muter de la commande en cours
@@ -32,17 +37,39 @@ function isLastStep() {
 }
 
 
+
 //ouverture de la modale
 export function openModal(product, categorie) {
-    const steps = components[categorie];
+    let steps = components[categorie];
 
-    //Si pas de modale
+    //Si pas de modale pour la catégorie
     if (!steps) {
         addToCart({ product, choices: {} });
         displayCart();
         return;
     }
+
+    steps = steps.filter((step) => {
+        if (!step.condition) {
+            return true;
+        }
+        return step.condition(product);
+    })
+
+    if (steps.length === 0) {
+        addToCart({
+            product: product,
+            choices: {}
+        });
+
+        displayCart();
+
+        return;
+    }
+
+
     const defaults = {};
+
     steps.forEach((step) => {
         if (step.default) {
             const option = step.option().find((o) => o.id === step.default);
@@ -54,7 +81,8 @@ export function openModal(product, categorie) {
         product: product,
         steps: steps,
         index: 0,
-        choices: defaults
+        choices: defaults,
+        quantity: 1,
     };
 
     showSteps();
@@ -92,7 +120,15 @@ function showSteps() {
         nextModal.disabled = !currentOrder.choices[step.id];
     }
 
+    //compteur pour les boissons
+    counterContainer.hidden = true;
 
+    if (step.number) {
+        counterContainer.hidden = false;
+        counter.textContent = currentOrder.quantity;
+    }
+
+    cancelModal.hidden = false;
     step.option().forEach((option) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -118,9 +154,9 @@ function showSteps() {
         button.addEventListener("click", () => {
 
             //select/deselect
-            if(currentOrder.choices[step.id]?.id === option.id){
+            if (currentOrder.choices[step.id]?.id === option.id) {
 
-                const newChoices = { ...currentOrder.choices};
+                const newChoices = { ...currentOrder.choices };
                 delete newChoices[step.id];
 
                 setCurrent(({
@@ -131,7 +167,7 @@ function showSteps() {
                 nextModal.disabled = false;
                 return;
             }
-            
+
             modalChoices.querySelectorAll(".choice").forEach((item) => {
                 item.classList.remove("selected");
             })
@@ -146,6 +182,23 @@ function showSteps() {
     })
 
 }
+
+
+moreButton.addEventListener("click", () => {
+    currentOrder.quantity++;
+    counter.textContent = currentOrder.quantity;
+
+})
+
+lessButton.addEventListener("click", () => {
+    if (!currentOrder) return;
+
+    if (currentOrder.quantity > 1) {
+        currentOrder.quantity--;
+        counter.textContent = currentOrder.quantity;
+
+    }
+})
 
 // Suivant
 nextModal.addEventListener("click", () => {
@@ -179,10 +232,13 @@ modal.addEventListener("close", () => {
 })
 
 
-
 //Valider la commande
 function confirmOrder() {
-    addToCart({ product: currentOrder.product, choices: currentOrder.choices });
+    addToCart({
+        product: currentOrder.product,
+        choices: currentOrder.choices,
+        quantity: currentOrder.quantity
+    });
 
     displayCart();
     modal.close();
@@ -228,4 +284,33 @@ function displayCart() {
 
     })
     totalElement.textContent = `${totalCart.toFixed(2)}€`;
+
+
+    payButton.disabled = true;
+
+    if (!isEmpty(cartContainer)) {
+        payButton.disabled = false;
+    }
 }
+
+function isEmpty(cartContainer) {
+    return cartContainer.children.length === 0;
+}
+
+
+displayCart();
+
+//Bouton payer
+payButton.addEventListener("click", () => {
+    if (orderType === "sur-place") {
+        window.location.href = "tableNumber.html";
+    } else if (orderType === "a-emporter") {
+        window.location.href = "thanks.html";
+    }
+})
+
+
+//Bouton abandon
+cancelButton.addEventListener("click", () => {
+    window.location.href = "index.html";
+})

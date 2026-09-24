@@ -15,7 +15,6 @@
     min-width: 0;
     height: 100vh;
     overflow-y: auto;
-
     box-sizing: border-box;
 }
 
@@ -63,7 +62,7 @@
         }
 
         .item {
-            @include m.item(v.$border, 0.1rem, 10rem, 1.6rem, 7rem, 1.4rem, 400);
+            @include m.item(v.$border, 0.1rem, 10rem, 7rem, 1.4rem, v.$font-weight-regular);
             flex-shrink: 0;
             aspect-ratio: 1;
 
@@ -86,7 +85,6 @@
     border: none;
     cursor: pointer;
     background-color: v.$bg-color;
-
 }
 
 .slider-left {
@@ -115,8 +113,8 @@
 
     #description {
         margin: 0 0 4rem;
-        font-weight: 400;
-        font-size: 1.5rem;
+        font-weight: v.$font-weight-regular;
+        font-size: v.$font-size-base;
     }
 
     #products-container {
@@ -128,14 +126,14 @@
         list-style: none;
 
         .item {
-            @include m.item(v.$border, 0.1rem, 18rem, 1.6rem, 10rem, 1.4rem, 400);
+            @include m.item(v.$border, 0.1rem, 18rem, 10rem, 1.4rem, v.$font-weight-regular);
             flex-shrink: 0;
         }
 
         h3 {
             width: 100%;
             font-size: 1.4rem;
-            font-weight: 400;
+            font-weight: v.$font-weight-regular;
             text-align: left;
             margin: 0;
         }
@@ -151,7 +149,7 @@
 
 // Modale______________________________________________________
 #modal {
-    @include m.container-center(600px);
+    @include m.container-center(60rem);
     margin: auto;
     border: none;
     border-radius: 1.6rem;
@@ -165,23 +163,17 @@
     }
 
     #modal-back {
+        @include m.outline-button;
         padding: 1rem;
-        border: 0.1rem solid v.$border;
-        border-radius: 0.8rem;
-        background-color: v.$bg-color;
         position: absolute;
         top: 1rem;
         left: 1rem;
     }
 
     #modal-next {
+        @include m.yellowButton;
         display: block;
-        background-color: v.$main-yellow;
-        border: none;
         margin: 1rem auto 2rem;
-        padding: 1.5rem 2.5rem;
-        border-radius: 0.8rem;
-
         font-weight: 700;
     }
 
@@ -203,24 +195,53 @@
         }
     }
 
+    //Contenu
     .modal-container {
         h1 {
             margin-top: 3rem;
             font-size: 2rem;
-            font-weight: 700;
+            font-weight: v.$font-weight-bold;
         }
 
         .modal-choices {
             @include m.flex-center(row, 3rem);
 
             .choice {
-                @include m.item(v.$border, 0.1rem, 14rem, 1.6rem, 7rem, 1.4rem, 400);
+                @include m.item(v.$border, 0.1rem, 14rem, 7rem, 1.4rem, v.$font-weight-regular);
 
                 &.selected {
                     @include m.selected;
 
                 }
 
+            }
+        }
+
+        .counter-container {
+            text-align: center;
+            gap: 1.5rem;
+            width: 100%;
+            margin: 2rem auto;
+
+            .counter {
+                display: inline-block;
+                min-width: 3rem;
+                font-size: 2rem;
+                font-weight: v.$font-weight-bold;
+                text-align: center;
+            }
+
+            .less,
+            .more {
+                @include m.yellowButton;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 5rem;
+                height: 5rem;
+                padding: 0;
+                font-size: 2rem;
+                cursor: pointer;
             }
         }
 
@@ -243,8 +264,8 @@
 
 // Panier______________________________________________________
 .cart {
-    width: 30rem;
-    min-width: 30rem;
+   width: clamp(25rem, 25vw, 35rem);
+    min-width: 25rem;
     height: 100vh;
     background-color: v.$cart-color;
     flex-shrink: 0;
@@ -283,12 +304,13 @@
     hr {
         border: none;
         height: 0.1rem;
-        background-color: black;
+        background-color: v.$text-color;
         width: 100%;
         margin: 0.5rem auto;
     }
 }
 
+//Commandes
 #order-container {
     display: flex;
     flex-direction: column;
@@ -329,6 +351,8 @@
     }
 }
 
+
+
 #total-container {
     padding-top: 1rem;
 
@@ -344,7 +368,7 @@
 
         #total {
             font-size: 2rem;
-            font-weight: bold;
+            font-weight: v.$font-weight-bold;
         }
     }
 
@@ -356,17 +380,17 @@
         .pay {
             width: 100%;
             cursor: pointer;
-            border-radius: 0.8rem;
-            padding: 1rem;
         }
 
         .cancel {
-            border: 0.1rem solid v.$border;
+            @include m.outline-button;
+            padding: 1rem;
+            background-color: v.$cart-color
         }
 
         .pay {
-            border: none;
-            background-color: v.$main-yellow;
+            @include m.yellowButton;
+            padding: 1rem;
 
         }
     }

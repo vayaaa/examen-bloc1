@@ -32,6 +32,8 @@ function identicalChoices(c1, c2) {
 //Ajouter au panier
 export function addToCart(order) {
 
+    const quantity = order.quantity ?? 1;
+
     const existOrder = state.cart.find((cartOrder) => {
 
         if (cartOrder.product.id !== order.product.id) {
@@ -46,7 +48,7 @@ export function addToCart(order) {
         const copy = {
             product: { ...order.product },
             choices: { ...order.choices },
-            quantity: 1
+            quantity: quantity
         };
 
         //Nouveau panier  

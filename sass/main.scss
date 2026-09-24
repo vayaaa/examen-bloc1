@@ -8,10 +8,11 @@ html {
 }
 
 body {
-    font-size: 1.6rem;
+    font-size: v.$font-size-base;
     margin: 0;
     padding: 0;
-    font-family: "Source Sans 3", sans-serif;
+    font-family: v.$font-main;
+    color: v.$text-color;
     overflow: hidden;
 }
 
@@ -29,24 +30,104 @@ body {
 
 
 .container {
-    @include m.container-center(600px);
+    @include m.container-center(50rem);
 
     h1 {
         margin: 2rem 0 5rem;
-        font-weight: 700;
+        font-weight: v.$font-weight-bold;
     }
 
     >p {
         margin: 0 0 5rem;
-        font-weight: 700;
-        font-size: 22px;
+        font-weight: v.$font-weight-bold;
+        font-size: 2.2rem;
     }
 
     .content {
-           @include m.flex-center(row, 3rem);
+        @include m.flex-center(row, 3rem);
 
         .choice {
             @include m.item;
+        }
+    }
+}
+
+
+.table-number {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+
+    .container {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #chevalet {
+        display: block;
+        width: 150px;
+        margin: 0 auto 1.5rem;
+    }
+
+    h1 {
+        margin: 0 0 3rem;
+        font-size: 2.8rem;
+    }
+
+    >.container>p {
+        margin: 0 0 2rem;
+        font-size: 1.8rem;
+    }
+
+    .numbers {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .number {
+            box-sizing: border-box;
+            width: 10rem;
+            height: 10rem;
+            margin: 1rem 0 2rem;
+            border: none;
+            border-bottom: 8px solid v.$border-notSelected;
+            font-size: 5rem;
+            font-weight: v.$font-weight-bold;
+            font-style: bold;
+            text-align: center;
+            outline: none;
+        }
+    }
+
+#soon{
+    margin: 2rem auto 2rem;
+    width:20rem;
+}
+
+    .save-button {
+        @include m.yellowButton;
+        display: block;
+        margin: 1.5rem auto;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .new-button {
+        @include m.yellowButton;
+        margin: auto auto 3rem;
+
+        p {
+            margin: 0;
         }
     }
 }
