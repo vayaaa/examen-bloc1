@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wacdo - Numéro de table</title>
+    <meta name="description" content="Commandez chez Wacdo, à emporter ou sur place.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
@@ -21,18 +22,20 @@
             <h1>Pour être servi à table, </h1>
             <p>Récupérer un chevalet et indiquez ici le numéro inscrit dessus</p>
 
-            <div class="numbers" id="numbers">
-                <input class="number" id="input1" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" value=""
-                    required>
-                <input class="number" id="input2" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" value=""
-                    required>
-                <input class="number" id="input3" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" value=""
-                    required>
-            </div>
+            <form id="table-form">
+                <div class="numbers" id="numbers">
+                    <input class="number" id="input1" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]"
+                        value="" aria-label="premier chiffre" required>
+                    <input class="number" id="input2" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]"
+                        value="" aria-label="deuxième chiffre" required>
+                    <input class="number" id="input3" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]"
+                        value="" aria-label="troisième chiffre" required>
+                </div>
 
-            <button class="save-button" type="button" id="save-button">
-                <p>Enregistrer le numéro</p>
-            </button>
+                <button class="save-button" type="submit" id="save-button" aria-label="Enregistrer le numéro">
+                    <p>Enregistrer le numéro</p>
+                </button>
+            </form>
         </div>
     </main>
 

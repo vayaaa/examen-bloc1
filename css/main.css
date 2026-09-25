@@ -218,7 +218,14 @@
   top: 1rem;
   left: 1rem;
 }
-#modal #modal-next {
+#modal .modal-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem auto 2rem;
+}
+#modal .modal-actions #modal-next {
   border: none;
   border-radius: 0.8rem;
   padding: 1.2rem 2.5rem;
@@ -226,9 +233,20 @@
   font-weight: 700;
   cursor: pointer;
   background-color: #FFC836;
-  display: block;
-  margin: 1rem auto 2rem;
+  margin: 0;
   font-weight: 700;
+}
+#modal .modal-actions #cancel-modal {
+  border: none;
+  border-radius: 0.8rem;
+  padding: 1.2rem 2.5rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  border: 0.1rem solid #6E6E6E;
+  background-color: white;
+  padding: 1rem;
+  margin: 0;
 }
 #modal .close-modal {
   position: absolute;

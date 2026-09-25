@@ -1,9 +1,20 @@
+// Au chargement, récupération d'un panier déjà sauvegardé, s'il y a 
+const savedCart = sessionStorage.getItem("cart");
+let cartAtStart = [];
+if (savedCart) {
+    cartAtStart = JSON.parse(savedCart);
+}
 
 export const state = {
     categories: [],
     products: [],
-    cart: [],
+    cart: cartAtStart,
 };
+
+function saveCart() {
+    const textCart = JSON.stringify(state.cart);
+    sessionStorage.setItem("cart", textCart)
+}
 
 function identicalChoices(c1, c2) {
     const keys1 = Object.keys(c1);
@@ -14,7 +25,7 @@ function identicalChoices(c1, c2) {
         return false;
     }
 
-    for(const key of keys1) {
+    for (const key of keys1) {
         const choice1 = c1[key];
         const choice2 = c2[key];
 
@@ -22,14 +33,14 @@ function identicalChoices(c1, c2) {
             return false;
         }
 
-        if (choice1.id !== choice2.id){
+        if (choice1.id !== choice2.id) {
             return false;
         }
     }
- return true;
+    return true;
 }
 
-//Ajouter au panier
+//Gestion du panier
 export function addToCart(order) {
 
     const quantity = order.quantity ?? 1;
@@ -54,10 +65,20 @@ export function addToCart(order) {
         //Nouveau panier  
         state.cart = [...state.cart, copy];
     }
+    saveCart();
 }
 
 
 //Supprimer du panier
 export function removeFromCart(index) {
     state.cart = state.cart.filter((order, i) => i !== index);
+
+    saveCart();
+}
+
+
+// Vide complètement le panier (utilisé après une commande terminée)
+export function clearCart() {
+    state.cart = [];
+    saveCart();
 }

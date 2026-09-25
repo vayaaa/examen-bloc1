@@ -41,7 +41,9 @@ export const components = {
                 },
                 {
                     id: "potatoes", nom: "Potatoes", image: "img/products/frites/POTATOES.png"
-
+                },
+                {
+                    id: "salad", nom: "salade", image: "img/products/salades/PETITE-SALADE.png"
                 },
             ]
         },

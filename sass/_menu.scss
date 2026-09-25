@@ -170,11 +170,24 @@
         left: 1rem;
     }
 
-    #modal-next {
-        @include m.yellowButton;
-        display: block;
+    .modal-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
         margin: 1rem auto 2rem;
-        font-weight: 700;
+
+        #modal-next {
+            @include m.yellowButton;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        #cancel-modal {
+            @include m.outline-button;
+            padding: 1rem;
+            margin: 0;
+        }
     }
 
     .close-modal {
@@ -264,7 +277,7 @@
 
 // Panier______________________________________________________
 .cart {
-   width: clamp(25rem, 25vw, 35rem);
+    width: clamp(25rem, 25vw, 35rem);
     min-width: 25rem;
     height: 100vh;
     background-color: v.$cart-color;

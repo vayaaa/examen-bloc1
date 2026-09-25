@@ -19,6 +19,7 @@ const payButton = document.querySelector("#modal-pay");
 const cancelModal = document.querySelector("#cancel-modal");
 const cancelButton = document.querySelector("#cancel-button");
 const orderType = sessionStorage.getItem("orderType");
+
 let currentOrder = null;
 
 //Maj sans muter de la commande en cours
@@ -79,11 +80,14 @@ export function openModal(product, categorie) {
 
     currentOrder = {
         product: product,
+        categorie: categorie,
         steps: steps,
         index: 0,
         choices: defaults,
         quantity: 1,
     };
+
+    cancelModal.hidden = categorie === "menus";
 
     showSteps();
     modal.showModal();
@@ -105,6 +109,7 @@ function showSteps() {
     backModal.hidden = currentOrder.index === 0;
     nextModal.textContent = isLastStep() ? "Ajouter à ma commande" : "Etape suivante";
     nextModal.disabled = !currentOrder.choices[step.id];
+
 
     modalChoices.innerHTML = "";
 
@@ -128,7 +133,6 @@ function showSteps() {
         counter.textContent = currentOrder.quantity;
     }
 
-    cancelModal.hidden = false;
     step.option().forEach((option) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -222,14 +226,20 @@ backModal.addEventListener("click", () => {
 });
 
 
-// Fermeture
+// Fermeture de la modale
 closeModal.addEventListener("click", () => {
+    modal.close();
+});
+
+//Annuler la commande
+cancelModal.addEventListener("click", () => {
     modal.close();
 });
 
 modal.addEventListener("close", () => {
     currentOrder = null;
 })
+
 
 
 //Valider la commande
@@ -269,7 +279,7 @@ function displayCart() {
 
         element.innerHTML = `
       <div class="cart-item">
-            <h4> ${order.quantity} ${order.product.nom} <button class="trash" type="button"><img src="img/icons/trash.png" alt="Supprimer" ></button> </h4>
+            <h4> ${order.quantity} ${order.product.nom} <button class="trash" type="button" aria-label="Supprimer cet article"><img src="img/icons/trash.png" alt="" ></button> </h4>
             <ul>${list} </ul>
         </div>
     `
@@ -302,11 +312,7 @@ displayCart();
 
 //Bouton payer
 payButton.addEventListener("click", () => {
-    if (orderType === "sur-place") {
-        window.location.href = "tableNumber.html";
-    } else if (orderType === "a-emporter") {
-        window.location.href = "thanks.html";
-    }
+    window.location.href = "tableNumber.html";
 })
 
 
