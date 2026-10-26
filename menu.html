@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wacdo - Menu</title>
+    <meta name="description" content="Choisissez votre prochain repas.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
@@ -46,6 +47,7 @@
                 </div>
                 <p id="orderNumber" class="order-number"></p>
             </div>
+
             <hr>
 
             <div id="order-container"></div>
@@ -58,8 +60,9 @@
                     <p id="total"></p>
                 </div>
                 <div class="buttons">
-                    <button class="cancel" type="button" id="cancel-button">Abandon</button>
-                    <button class="pay" type="button" id="modal-pay">Payer</button>
+                    <button class="cancel" type="button" id="cancel-button"
+                        aria-label="Abandonner la commande">Abandon</button>
+                    <button class="pay" type="button" id="modal-pay" aria-label="Payer la commande">Payer</button>
                 </div>
             </div>
 
@@ -72,8 +75,9 @@
     <dialog id="modal">
         <div class="modal-content">
 
-            <button class="close-modal" type="button" ><img src="img/icons/supprimer.png" alt="Fermer"></button>
-            <button id="modal-back" type="button" hidden> Retour </button>
+            <button class="close-modal" type="button" aria-label="Fermer la modale"><img src="img/icons/supprimer.png"
+                    alt=""></button>
+            <button id="modal-back" type="button" aria-label="Retour à la page précédente" hidden> Retour </button>
 
             <div class="modal-container">
                 <h1 id="modal-title"></h1>
@@ -84,15 +88,17 @@
                 </div>
 
                 <div class="counter-container" hidden>
-                    <button class="less" tyxpe="button" id="btn-less">-</button>
+                    <button class="less" tyxpe="button" id="btn-less" aria-label="enlever">-</button>
                     <span class="counter" id="counter">1</span>
-                    <button class="more" type="button" id="btn-more">+</button>
+                    <button class="more" type="button" id="btn-more" aria-label="ajouter">+</button>
                 </div>
 
                 <div class="modal-actions">
-                    <button class="cancel" type="button" id="cancel-modal" hidden>Annuler</button>
-                    <button class="next" type="button" id="modal-next">Etape Suivante</button>
-                    <button class="next" type="button" id="drink-add" hidden>Ajouter a ma commande</button>
+                    <button class="cancel" type="button" id="cancel-modal" aria-label="Annuler" hidden>Annuler</button>
+                    <button class="next" type="button" id="modal-next" aria-label="Passer à l'étape suivante">Etape
+                        Suivante</button>
+                    <button class="next" type="button" id="drink-add" aria-label="Ajouter à ma commande" hidden>Ajouter
+                        a ma commande</button>
                 </div>
             </div>
         </div>

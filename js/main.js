@@ -1,5 +1,7 @@
 const choices = document.querySelectorAll(".choice");
 
+
+//Choix du type de commande
 choices.forEach(choice => {
     choice.addEventListener("click", () => {
         const type = choice.dataset.type;

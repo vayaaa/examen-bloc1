@@ -1,6 +1,8 @@
 import { state } from "./state.js";
 import { openModal } from "./modal.js";
 
+
+
 const productsContainer = document.querySelector("#products-container");
 const productsTitle = document.querySelector("#categorie-title");
 const text = document.querySelector("#description");
@@ -23,6 +25,8 @@ export function correctionLienImage(image) {
     return image;
 }
 
+
+//Afficher les produits par catégories
 export function displayProducts(categoryId) {
     productsContainer.innerHTML = "";
 
@@ -56,9 +60,12 @@ export function displayProducts(categoryId) {
         `;
 
         element.addEventListener("click", () => {
-                openModal(product, category.title); 
+            openModal(product, category.title);
         });
 
         productsContainer.appendChild(element);
     });
 }
+
+// Sélectionner la première catégorie par défaut
+displayProducts(1);

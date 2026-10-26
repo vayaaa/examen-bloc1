@@ -1,4 +1,4 @@
-import { state, clearCart } from "./state.js";
+import { clearCart } from "./state.js";
 
 const newButton = document.querySelector("#new-button");
 

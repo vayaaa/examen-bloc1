@@ -1,7 +1,7 @@
 import { state } from "./state.js";
 
 
-//transforme en liste 
+//transforme en liste pour les sauces et boissons 
 function fromProducts(list) {
     return list.map((p) => ({
         id: p.nom,
@@ -11,7 +11,7 @@ function fromProducts(list) {
     }));
 }
 
-
+//Les modales 
 export const components = {
     menus: [
         {
@@ -34,7 +34,6 @@ export const components = {
             title: "Choisissez votre accompagnement",
             text: "Frites, potatoes, la pomme de terre dans tous ses états",
             default: "fries",
-
             option: () => [
                 {
                     id: "fries", nom: "Frites", image: "img/products/frites/GRANDE_FRITE.png"
@@ -52,7 +51,6 @@ export const components = {
             title: "Choisissez votre sauce",
             text: "Quel assaisonnement pour votre accompagnement?",
             scroll: true,
-
             option: () => fromProducts(state.products.sauces),
         },
 
@@ -61,7 +59,6 @@ export const components = {
             title: "Choisissez votre boisson",
             text: "Un soda, un jus de fruit ou un verre d'eau pour accompagner votre repas",
             scroll: true,
-
             option: () => fromProducts(state.products.boissons),
         },
     ],

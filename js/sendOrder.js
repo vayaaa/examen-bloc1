@@ -1,6 +1,7 @@
-
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
 
+
+//Envoyer la commande
 export async function sendOrder(orderType, cart, tableNumber) {
     const order = buildOrder(orderType, cart, tableNumber);
 
@@ -13,7 +14,6 @@ export async function sendOrder(orderType, cart, tableNumber) {
             body: JSON.stringify(order),
         });
 
-
         if (!reponse.ok) {
             throw new Error(`Statut de réponse : ${reponse.status}`);
         }
@@ -22,12 +22,14 @@ export async function sendOrder(orderType, cart, tableNumber) {
         console.log(resultat);
 
     } catch (error) {
-        console.error("Une erreur est surveue lors de l'envoi de la commande. Veuillez réessayer.", error);
+        console.error("Une erreur est survenue lors de l'envoi de la commande. Veuillez réessayer", error);
         throw error; // pour que l'appelant sache que ça a échoué
 
     }
 }
 
+
+// Construction de la commande
 function buildOrder(orderType, cart, tableNumber) {
     return {
         type: orderType,

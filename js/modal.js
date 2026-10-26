@@ -6,19 +6,22 @@ const modal = document.querySelector("#modal");
 const closeModal = document.querySelector(".close-modal");
 const backModal = document.querySelector("#modal-back");
 const nextModal = document.querySelector("#modal-next");
+const cancelModal = document.querySelector("#cancel-modal");
+
 const modalTitle = document.querySelector("#modal-title");
 const modalText = document.querySelector("#modal-text");
 const modalChoices = document.querySelector(".modal-choices");
+
 const counterContainer = document.querySelector(".counter-container");
 const lessButton = document.querySelector("#btn-less");
 const moreButton = document.querySelector("#btn-more");
 const counter = document.querySelector("#counter");
+
 const cartContainer = document.querySelector("#order-container");
 const totalElement = document.querySelector("#total");
 const payButton = document.querySelector("#modal-pay");
-const cancelModal = document.querySelector("#cancel-modal");
 const cancelButton = document.querySelector("#cancel-button");
-const orderType = sessionStorage.getItem("orderType");
+
 
 let currentOrder = null;
 
@@ -27,19 +30,21 @@ function setCurrent(changes) {
     currentOrder = { ...currentOrder, ...changes };
 }
 
+//Enregistre les choix à chaque étapes
 function selectChoice(stepId, option) {
     setCurrent({
         choices: { ...currentOrder.choices, [stepId]: option }
     })
 }
 
+//Vérifie si l'étape actuelle est la dernière
 function isLastStep() {
     return currentOrder.index === currentOrder.steps.length - 1;
 }
 
 
 
-//ouverture de la modale
+//ouverture de la modale_________________________________________________
 export function openModal(product, categorie) {
     let steps = components[categorie];
 
@@ -64,7 +69,6 @@ export function openModal(product, categorie) {
         });
 
         displayCart();
-
         return;
     }
 
@@ -94,8 +98,9 @@ export function openModal(product, categorie) {
 }
 
 
-// Afficher les components
+// Afficher les étapes et options_________________________________________________
 function showSteps() {
+
     const step = currentOrder.steps[currentOrder.index];
 
     modalTitle.textContent = step.title;
@@ -106,7 +111,7 @@ function showSteps() {
         modalText.textContent = step.text;
     }
 
-    backModal.hidden = currentOrder.index === 0;
+    backModal.hidden = currentOrder.index === 0; //masqué à la 1ere étape
     nextModal.textContent = isLastStep() ? "Ajouter à ma commande" : "Etape suivante";
     nextModal.disabled = !currentOrder.choices[step.id];
 
@@ -119,6 +124,7 @@ function showSteps() {
         modalChoices.classList.remove("list-container")
     }
 
+    //Si l'étape est facultative 
     if (step.skip) {
         nextModal.disabled = false;
     } else {
@@ -126,18 +132,21 @@ function showSteps() {
     }
 
     //compteur pour les boissons
-    counterContainer.hidden = true;
+    counterContainer.hidden = true; //masqué par défaut 
 
     if (step.number) {
         counterContainer.hidden = false;
         counter.textContent = currentOrder.quantity;
     }
 
+
+    //Parcours les options pour chaque étape
     step.option().forEach((option) => {
         const button = document.createElement("button");
         button.type = "button";
         button.classList.add("choice");
 
+        // Vérifie si l'option est déjà sélectionnée
         const chosen = currentOrder.choices[step.id];
         if (chosen && chosen.id === option.id) {
             button.classList.add("selected");
@@ -152,7 +161,6 @@ function showSteps() {
         ${imageOption} 
         <p>${option.nom} </p>
         `;
-
 
         //Quand je clique sur une option
         button.addEventListener("click", () => {
@@ -175,9 +183,10 @@ function showSteps() {
             modalChoices.querySelectorAll(".choice").forEach((item) => {
                 item.classList.remove("selected");
             })
+
             button.classList.add("selected");
 
-            selectChoice(step.id, option);
+            selectChoice(step.id, option); //Enregistre le choix dans la commande
 
             nextModal.disabled = false;
         })
@@ -187,11 +196,10 @@ function showSteps() {
 
 }
 
-
+//Bouton + et - 
 moreButton.addEventListener("click", () => {
     currentOrder.quantity++;
     counter.textContent = currentOrder.quantity;
-
 })
 
 lessButton.addEventListener("click", () => {
@@ -200,9 +208,9 @@ lessButton.addEventListener("click", () => {
     if (currentOrder.quantity > 1) {
         currentOrder.quantity--;
         counter.textContent = currentOrder.quantity;
-
     }
 })
+
 
 // Suivant
 nextModal.addEventListener("click", () => {
@@ -215,8 +223,6 @@ nextModal.addEventListener("click", () => {
     showSteps();
 });
 
-
-
 // Retour
 backModal.addEventListener("click", () => {
     if (currentOrder.index > 0) {
@@ -224,7 +230,6 @@ backModal.addEventListener("click", () => {
         showSteps();
     }
 });
-
 
 // Fermeture de la modale
 closeModal.addEventListener("click", () => {
@@ -236,13 +241,14 @@ cancelModal.addEventListener("click", () => {
     modal.close();
 });
 
+
+//Une fois fermée, on reinitialise
 modal.addEventListener("close", () => {
     currentOrder = null;
 })
 
 
-
-//Valider la commande
+//Valider la commande_________________________________________________
 function confirmOrder() {
     addToCart({
         product: currentOrder.product,
@@ -255,11 +261,14 @@ function confirmOrder() {
 }
 
 
-//Afficher le panier 
+
+//Afficher le panier_________________________________________________
 function displayCart() {
     cartContainer.innerHTML = "";
+
     let totalCart = 0;
 
+    //Toutes les commandes dans le panier
     state.cart.forEach((order, index) => {
         const element = document.createElement("article");
         element.classList.add("cart-item");
@@ -274,27 +283,30 @@ function displayCart() {
         });
 
         totalOrder = totalOrder * order.quantity;
-
         totalCart += totalOrder;
 
-        element.innerHTML = `
+
+        //Affiche le produit, la quantité, les options et l'icon de supp
+        element.innerHTML =
+            `
       <div class="cart-item">
             <h4> ${order.quantity} ${order.product.nom} <button class="trash" type="button" aria-label="Supprimer cet article"><img src="img/icons/trash.png" alt="" ></button> </h4>
             <ul>${list} </ul>
         </div>
-    `
+            `
 
+        //Supprimer la commande du panier au clic sur l'icon
         const trash = element.querySelector(".trash");
         trash.addEventListener("click", () => {
             removeFromCart(index);
             displayCart();
         })
+
         cartContainer.appendChild(element);
-
-
     })
-    totalElement.textContent = `${totalCart.toFixed(2)}€`;
 
+    //Affich le prix total
+    totalElement.textContent = `${totalCart.toFixed(2)}€`;
 
     payButton.disabled = true;
 
@@ -307,14 +319,14 @@ function isEmpty(cartContainer) {
     return cartContainer.children.length === 0;
 }
 
-
 displayCart();
+
+
 
 //Bouton payer
 payButton.addEventListener("click", () => {
     window.location.href = "tableNumber.html";
 })
-
 
 //Bouton abandon
 cancelButton.addEventListener("click", () => {

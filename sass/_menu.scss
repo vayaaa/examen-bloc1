@@ -277,8 +277,8 @@
 
 // Panier______________________________________________________
 .cart {
-    width: clamp(25rem, 25vw, 35rem);
-    min-width: 25rem;
+    width: clamp(20rem, 20vw, 25rem);
+    min-width: 20rem;
     height: 100vh;
     background-color: v.$cart-color;
     flex-shrink: 0;
@@ -287,6 +287,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin:0;
 
     .logo {
         display: block;
