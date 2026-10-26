@@ -22,4 +22,6 @@ L'objectif de ce projet est de développer l'interface Front-end de l'applicatio
 
 # Accès 
 L'application Wacdo est accessible en ligne via l'URL suivante: 
+https://examen-bloc1.vercel.app/
+
 
