@@ -50,9 +50,7 @@ export function openModal(product, categorie) {
 
     //Si pas de modale pour la catégorie
     if (!steps) {
-        addToCart({ product, choices: {} });
-        displayCart();
-        return;
+        steps = [];
     }
 
     steps = steps.filter((step) => {
@@ -77,7 +75,15 @@ export function openModal(product, categorie) {
 
     steps.forEach((step) => {
         if (step.default) {
-            const option = step.option().find((o) => o.id === step.default);
+            const options = step.option();
+            let option;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].id === step.default) {
+                    option = options[i];
+                    break;
+                }
+            }
             defaults[step.id] = option;
         }
     });
@@ -115,7 +121,6 @@ function showSteps() {
     nextModal.textContent = isLastStep() ? "Ajouter à ma commande" : "Etape suivante";
     nextModal.disabled = !currentOrder.choices[step.id];
 
-
     modalChoices.innerHTML = "";
 
     if (step.scroll) {
@@ -148,8 +153,10 @@ function showSteps() {
 
         // Vérifie si l'option est déjà sélectionnée
         const chosen = currentOrder.choices[step.id];
+        button.setAttribute("aria-pressed", "false");
         if (chosen && chosen.id === option.id) {
             button.classList.add("selected");
+            button.setAttribute("aria-pressed", "true");
         }
 
         let imageOption = "";
@@ -176,15 +183,18 @@ function showSteps() {
                 }))
 
                 button.classList.remove("selected");
-                nextModal.disabled = false;
+                button.setAttribute("aria-pressed", "false");
+                nextModal.disabled = !step.skip; //ne passe pas si pas de select
                 return;
             }
 
             modalChoices.querySelectorAll(".choice").forEach((item) => {
                 item.classList.remove("selected");
+                item.setAttribute("aria-pressed", "false");
             })
 
             button.classList.add("selected");
+            button.setAttribute("aria-pressed", "true");
 
             selectChoice(step.id, option); //Enregistre le choix dans la commande
 
@@ -198,7 +208,8 @@ function showSteps() {
 
 //Bouton + et - 
 moreButton.addEventListener("click", () => {
-    currentOrder.quantity++;
+    if (!currentOrder) return;
+    setCurrent({ quantity: currentOrder.quantity + 1 })
     counter.textContent = currentOrder.quantity;
 })
 
@@ -206,7 +217,7 @@ lessButton.addEventListener("click", () => {
     if (!currentOrder) return;
 
     if (currentOrder.quantity > 1) {
-        currentOrder.quantity--;
+        setCurrent({ quantity: currentOrder.quantity - 1 })
         counter.textContent = currentOrder.quantity;
     }
 })
