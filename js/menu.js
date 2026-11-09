@@ -7,7 +7,6 @@ const orderNumber = sessionStorage.getItem("orderNumber");
 const orderType = sessionStorage.getItem("orderType");
 
 
-
 //Protection d'accès aux pages
 if (!orderType) {
     window.location.href = "index.html";

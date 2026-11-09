@@ -1,6 +1,5 @@
 import { state } from "./state.js";
 
-
 //transforme en liste pour les sauces et boissons 
 function fromProducts(list) {
     return list.map((p) => ({

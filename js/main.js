@@ -13,7 +13,6 @@ choices.forEach(choice => {
         sessionStorage.setItem("orderType", type);
         sessionStorage.setItem("orderNumber", numeroCommande);
 
-
         window.location.href = "menu.html";
     })
 })

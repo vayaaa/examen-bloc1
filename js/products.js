@@ -25,7 +25,6 @@ export function correctionLienImage(image) {
     return image;
 }
 
-
 //Afficher les produits par catégories
 export function displayProducts(categoryId) {
     productsContainer.innerHTML = "";

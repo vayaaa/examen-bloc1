@@ -144,7 +144,6 @@ function showSteps() {
         counter.textContent = currentOrder.quantity;
     }
 
-
     //Parcours les options pour chaque étape
     step.option().forEach((option) => {
         const button = document.createElement("button");
